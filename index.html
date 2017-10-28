@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<head>
+
+<h1>
+	Welcome to guidetroop
+</h1>
+
+
+
+
+
+
+
+
+<button onclick="myFunction()">Where do you want to go?</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    var person = prompt("Please enter your name", "user");
+    if (person != null) {
+        document.getElementById("demo").innerHTML =
+        "Hello " + person + "! How are you today?";
+    }
+}
+</script>
+
+
+
+
+
+<script>
+
+lat_value = 
+
+long_value  
+dist_value =
+
+res_value =
+let options = {
+  "url": "https://apis.solarialabs.com/shine/v1/parking-rules/meters?lat={lat_value}&long={value}&max-distance={500}&max-results={10}&apikey={6sWNkozAMnEpqfEvGUNyuuiNaYKJMAmF}",
+  "method": "GET",
+  "processData": false
+}
+
+$.ajax(options).done((response)=>{
+  console.log(response)
+})
+
+
+
+
+
+
+</script>
+
+</head>
