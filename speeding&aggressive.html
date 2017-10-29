@@ -5,30 +5,56 @@
 
 
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 <body>
 	<form>
 		<h1> Where would you like to go? </h1>
-		<input id = "streetnum" type="text" placeholder="Street Number"><br>
-  		<input id = "streetname" type="text" placeholder="Street Name"><br>
-  		<input id = "city" type="text" placeholder="City"><br>
-  		<input id = "zip" type="text" placeholder="Zip-Code"><br>
-  		<input id = "state" type="text" placeholder="State"><br> 
+		<input id = "streetnum" type="Number" placeholder="Street Number"/>
+  		<input id = "streetname" type="text" placeholder="Street Name"/>
+  		<input id = "city" type="text" placeholder="City"/>
+  		<input id = "zip" type="text" placeholder="Zip-Code"/>
+  		<input id = "state" type="text" placeholder="State"/> 
+		<input type="button" value="Go!" onclick="insert()"/>
 	</form>
 	<div id="display"></div>
 </body>
 
 <script>
-	var streetnumInput = document.getElementById("streetnum").value;
-	var streetnameInput = document.getElementById("streetname").value;
-	var cityInput = document.getElementById("city").value;
-	var zipInput = document.getElementById("zip").value;
-	var stateInput = document.getElementById("state").value;
+	var cityresult = [];
+
+	var streetnumInput = document.getElementById("streetnum");
+	var streetnameInput = document.getElementById("streetname");
+	var cityInput = document.getElementById("city");
+	var zipInput = document.getElementById("zip");
+	var stateInput = document.getElementById("state");
+	
+	function insert() {
+		cityresult.push(cityInput.value);
+		console.log(cityInput.value)
+	}
+
+	console.log(streetnumInput)
+	console.log(streetnameInput)
+	console.log(cityInput)
+	console.log(zipInput)
+	console.log(stateInput)
+
+	$("button").click(function(){
+		$.post("PUT NAME HERE",
+		{
+			cityname: "cityresult" 
+		},
+		function(data, status) {
+			alert("Data: " + data + "\nStatus: " + status);
+
+		});
+	});	
+
 </script>
 
 
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
  
 <script>
 
@@ -41,8 +67,8 @@
 } );
 
 	function success(scores) {
-		console.log(scores)
-		console.log(scores.slice(107,112))
+		
+		//console.log(scores.slice(107,112))
 		
 		var speed_score = scores.slice(107,112);
 		alert(speed_score);
