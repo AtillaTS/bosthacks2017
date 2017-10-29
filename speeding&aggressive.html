@@ -22,7 +22,13 @@
 </body>
 
 <script>
+	
+	var streetnumresult = [];
+	var streetnameresult = [];
 	var cityresult = [];
+	var zipresult = [];
+	var stateresult = [];
+
 
 	var streetnumInput = document.getElementById("streetnum");
 	var streetnameInput = document.getElementById("streetname");
@@ -31,8 +37,18 @@
 	var stateInput = document.getElementById("state");
 	
 	function insert() {
+		
+		streetnumresult.push(streetnumInput.value);
+		streetnameresult.push(streetnameInput.value);
 		cityresult.push(cityInput.value);
+		zipresult.push(zipInput.value);
+		stateresult.push(stateInput.value);
+
+		console.log(streetnumresult[0])
+		console.log(streetnameInput.value)
 		console.log(cityInput.value)
+		console.log(zipInput.value)
+		console.log(stateInput.value)
 	}
 
 	console.log(streetnumInput)
@@ -52,25 +68,47 @@
 		});
 	});	
 
-</script>
-
-
- 
-<script>
 
 	$( function() {
 
 		$('#getScore').click( function() {
 	
-	$.get( "https://apis.solarialabs.com/shine/v1/total-home-scores/reports?street-number=35&street-name=adams&city=brookline&state=MA&zip-code=02446&lat={value}&lon={value}&apikey=D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh", success, "html");
+	//var data = { street-number: "35", street-name: "adams", city: "brookline", state: "MA", zip-code: "02446", apikey: "D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh"};
+	
+	console.log(cityresult)
+	var string = ""
+	var url = "https://apis.solarialabs.com/shine/v1/total-home-scores/reports?"
+	var strnum = streetnumresult[0];
+	var strname = streetnameresult[0];
+	var strcity = cityresult[0];
+	var strzip = zipresult[0];
+	var strstate = stateresult[0];
+	var numtxt = "&street-number="
+	var nametxt = "&street-name="
+	var citytxt = "&city="
+	var statetxt = "&state="
+	var ziptxt = "&zip-code="
+	var apikey = "D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh"
+	var apikeytxt = "&apikey="
+	console.log(strname)
+	var final = string.concat(url, numtxt,strnum, nametxt,strname, citytxt,strcity,ziptxt,strzip, statetxt,strstate, ziptxt,strzip, apikeytxt,apikey); 
+	console.log(final)
+
+	$.get( final, success, "html");
+
+
+
+
+	//$.get( "https://apis.solarialabs.com/shine/v1/total-home-scores/reports?street-number=35&street-name=adams&city=brookline&state=MA&zip-code=02446&apikey=D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh", success, "html");
 
 } );
 
 	function success(scores) {
 		
 		//console.log(scores.slice(107,112))
-		
-		var speed_score = scores.slice(107,112);
+		var index = scores.search("value")
+		var finalindex = index+7
+		var speed_score = scores.slice(finalindex,finalindex+5);
 		alert(speed_score);
 	}
 } );
