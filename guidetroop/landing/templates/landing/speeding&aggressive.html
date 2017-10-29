@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+<h1> Speed Aggressive API </h1>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<body>
+	<form>
+		<h1> Where would you like to go? </h1>
+		<input id = "streetnum" type="Number" placeholder="Street Number"/>
+  		<input id = "streetname" type="text" placeholder="Street Name"/>
+  		<input id = "city" type="text" placeholder="City"/>
+  		<input id = "zip" type="text" placeholder="Zip-Code"/>
+  		<input id = "state" type="text" placeholder="State"/> 
+		<input type="button" value="Go!" onclick="insert()"/>
+	</form>
+	<div id="display"></div>
+</body>
+
+<script>
+	
+	var streetnumresult = [];
+	var streetnameresult = [];
+	var cityresult = [];
+	var zipresult = [];
+	var stateresult = [];
+
+
+	var streetnumInput = document.getElementById("streetnum");
+	var streetnameInput = document.getElementById("streetname");
+	var cityInput = document.getElementById("city");
+	var zipInput = document.getElementById("zip");
+	var stateInput = document.getElementById("state");
+	
+	function insert() {
+		
+		streetnumresult.push(streetnumInput.value);
+		streetnameresult.push(streetnameInput.value);
+		cityresult.push(cityInput.value);
+		zipresult.push(zipInput.value);
+		stateresult.push(stateInput.value);
+
+		console.log(streetnumresult[0])
+		console.log(streetnameInput.value)
+		console.log(cityInput.value)
+		console.log(zipInput.value)
+		console.log(stateInput.value)
+	}
+
+	console.log(streetnumInput)
+	console.log(streetnameInput)
+	console.log(cityInput)
+	console.log(zipInput)
+	console.log(stateInput)
+
+	$("button").click(function(){
+		$.post("PUT NAME HERE",
+		{
+			cityname: "cityresult" 
+		},
+		function(data, status) {
+			alert("Data: " + data + "\nStatus: " + status);
+
+		});
+	});	
+
+
+	$( function() {
+
+		$('#getScore').click( function() {
+	
+	//var data = { street-number: "35", street-name: "adams", city: "brookline", state: "MA", zip-code: "02446", apikey: "D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh"};
+	
+	console.log(cityresult)
+	var string = ""
+	var url = "https://apis.solarialabs.com/shine/v1/total-home-scores/reports?"
+	var strnum = streetnumresult[0];
+	var strname = streetnameresult[0];
+	var strcity = cityresult[0];
+	var strzip = zipresult[0];
+	var strstate = stateresult[0];
+	var numtxt = "&street-number="
+	var nametxt = "&street-name="
+	var citytxt = "&city="
+	var statetxt = "&state="
+	var ziptxt = "&zip-code="
+	var apikey = "D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh"
+	var apikeytxt = "&apikey="
+	console.log(strname)
+	var final = string.concat(url, numtxt,strnum, nametxt,strname, citytxt,strcity,ziptxt,strzip, statetxt,strstate, ziptxt,strzip, apikeytxt,apikey); 
+	console.log(final)
+
+	$.get( final, success, "html");
+
+
+
+
+	//$.get( "https://apis.solarialabs.com/shine/v1/total-home-scores/reports?street-number=35&street-name=adams&city=brookline&state=MA&zip-code=02446&apikey=D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh", success, "html");
+
+} );
+
+	function success(scores) {
+		
+		//console.log(scores.slice(107,112))
+		var index = scores.search("value")
+		var finalindex = index+7
+		var speed_score = scores.slice(finalindex,finalindex+5);
+		alert(speed_score);
+	}
+} );
+
+</script>
+
+
+	
+	<button id="getScore">Get Score</button>
+
+</html>

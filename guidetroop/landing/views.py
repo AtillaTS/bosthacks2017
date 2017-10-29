@@ -20,6 +20,8 @@ class HomeView(TemplateView):
             text = form.cleaned_data['post']
 
         text = data(text)
+        if text == 0:
+            text = "No Data"
 
         args = {'form': form, 'text': text}
         return render(request, self.template_name, args)

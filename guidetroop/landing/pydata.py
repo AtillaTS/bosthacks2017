@@ -14,7 +14,9 @@ def data(name):
                     d[row[0]][i] = int(d[row[0]][i])
                 
             
-            
-    return d[name][9]/d[name][0]
+    if name in d:         
+        return d[name][9]/d[name][0]
+    else:
+        return 0
 
     
