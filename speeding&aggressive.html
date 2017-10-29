@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+<h1> Speed Aggressive API </h1>
+
+
+
+
+<body>
+	<form>
+		<h1> Where would you like to go? </h1>
+		<input id = "streetnum" type="text" placeholder="Street Number"><br>
+  		<input id = "streetname" type="text" placeholder="Street Name"><br>
+  		<input id = "city" type="text" placeholder="City"><br>
+  		<input id = "zip" type="text" placeholder="Zip-Code"><br>
+  		<input id = "state" type="text" placeholder="State"><br> 
+	</form>
+	<div id="display"></div>
+</body>
+
+<script>
+	var streetnumInput = document.getElementById("streetnum").value;
+	var streetnameInput = document.getElementById("streetname").value;
+	var cityInput = document.getElementById("city").value;
+	var zipInput = document.getElementById("zip").value;
+	var stateInput = document.getElementById("state").value;
+</script>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+ 
+<script>
+
+	$( function() {
+
+		$('#getScore').click( function() {
+	
+	$.get( "https://apis.solarialabs.com/shine/v1/total-home-scores/reports?street-number=35&street-name=adams&city=brookline&state=MA&zip-code=02446&lat={value}&lon={value}&apikey=D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh", success, "html");
+
+} );
+
+	function success(scores) {
+		console.log(scores)
+		console.log(scores.slice(107,112))
+		
+		var speed_score = scores.slice(107,112);
+		alert(speed_score);
+	}
+} );
+
+</script>
+
+
+	
+	<button id="getScore">Get Score</button>
+
+</html>
