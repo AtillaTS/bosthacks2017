@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 
 <html>
-<h1> Speed Aggressive API </h1>
-
-
+<h1> GuideTroop </h1>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 
 <body>
 	<form>
@@ -15,7 +12,8 @@
   		<input id = "streetname" type="text" placeholder="Street Name"/>
   		<input id = "city" type="text" placeholder="City"/>
   		<input id = "zip" type="text" placeholder="Zip-Code"/>
-  		<input id = "state" type="text" placeholder="State"/> 
+  		<input id = "state" type="text" placeholder="State"/>
+	    <input id = "carth" type="Number" placeholder="Corresp. Car Theft Metric"/>
 		<input type="button" value="Go!" onclick="insert()"/>
 	</form>
 	<div id="display"></div>
@@ -23,19 +21,49 @@
 
 <script>
 	
+
+	$( function() {
+		
+		$('#getWeather').click( function() {
+	var apikeyweather = "62158f4c711d04a23a7038a147aa06d4"	
+	var data = {q: cityInput.value, APPID: apikeyweather};
+	$.get( "http://api.openweathermap.org/data/2.5/weather?", data, success, "html");
+	//$.get( "http://api.openweathermap.org/data/2.5/weather?q=Nizhneyansk&APPID=62158f4c711d04a23a7038a147aa06d4", success, "html");
+
+} );
+
+	function success(weatherdata) {
+		var temp = weatherdata.search("temp");
+		var tempindex = temp+5
+		var actualtemp = weatherdata.slice(tempindex+1, tempindex+7)
+		console.log(actualtemp);
+
+		var blizzard = weatherdata.search("Extreme");
+		if (blizzard != -1) {
+			alert("Extreme weather conditions. Better to take Uber/Lyft or Public transportation")
+		};
+		var snowindex = weatherdata.search("Snow");
+		if (snowindex != -1 && tempindex <266){
+			alert("Fairly intense weather conditions. Would be better take Uber/Lyft or Public transportation")
+		};
+	}
+}); 
+
 	var streetnumresult = [];
 	var streetnameresult = [];
 	var cityresult = [];
 	var zipresult = [];
 	var stateresult = [];
-
+	var carthresult = [];
+	var saresult = [];
 
 	var streetnumInput = document.getElementById("streetnum");
 	var streetnameInput = document.getElementById("streetname");
 	var cityInput = document.getElementById("city");
 	var zipInput = document.getElementById("zip");
 	var stateInput = document.getElementById("state");
-	
+	var carthInput = document.getElementById("carth");
+
 	function insert() {
 		
 		streetnumresult.push(streetnumInput.value);
@@ -43,37 +71,21 @@
 		cityresult.push(cityInput.value);
 		zipresult.push(zipInput.value);
 		stateresult.push(stateInput.value);
+		var adjct = (carthInput.value)*1000
+		carthresult.push(adjct);
 
 		console.log(streetnumresult[0])
 		console.log(streetnameInput.value)
 		console.log(cityInput.value)
 		console.log(zipInput.value)
 		console.log(stateInput.value)
+		console.log(carthInput.value)
 	}
 
-	console.log(streetnumInput)
-	console.log(streetnameInput)
-	console.log(cityInput)
-	console.log(zipInput)
-	console.log(stateInput)
-
-	$("button").click(function(){
-		$.post("PUT NAME HERE",
-		{
-			cityname: "cityresult" 
-		},
-		function(data, status) {
-			alert("Data: " + data + "\nStatus: " + status);
-
-		});
-	});	
-
-
+	
 	$( function() {
 
 		$('#getScore').click( function() {
-	
-	//var data = { street-number: "35", street-name: "adams", city: "brookline", state: "MA", zip-code: "02446", apikey: "D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh"};
 	
 	console.log(cityresult)
 	var string = ""
@@ -96,27 +108,45 @@
 
 	$.get( final, success, "html");
 
-
-
-
 	//$.get( "https://apis.solarialabs.com/shine/v1/total-home-scores/reports?street-number=35&street-name=adams&city=brookline&state=MA&zip-code=02446&apikey=D0WlqLlX9ifDlOFzR1GnQ85NZFUwG4dh", success, "html");
 
 } );
-
+	
 	function success(scores) {
 		
 		//console.log(scores.slice(107,112))
 		var index = scores.search("value")
 		var finalindex = index+7
 		var speed_score = scores.slice(finalindex,finalindex+5);
+		saresult.push(speed_score);
 		alert(speed_score);
 	}
 } );
+	
+	$( function() {
+		
+		$('#getfinalfinal').click( function() {
+			console.log(carthresult[0])
+			var finalct = carthresult[0]*-7.69;
+			console.log(finalct);
+			console.log(saresult[0]);
+		
+			var finalsa = saresult[0]*1.7;
+
+			var finalresult = finalct+finalsa;
+			alert(finalresult);
+		} );
+	});
+
+
 
 </script>
 
+<button id="getScore">Get Score</button>
 
-	
-	<button id="getScore">Get Score</button>
+<button id="getWeather">Get W. Score</button>
+
+<button id="getfinalfinal">Get Final Final</button>
+
 
 </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<script>
+	$( function() {
+
+		$('#getWeather').click( function() {
+	
+	$.get( "http://api.openweathermap.org/data/2.5/weather?q=Boston&APPID=62158f4c711d04a23a7038a147aa06d4", success, "html");
+
+} );
+
+	function success(weatherdata) {
+		alert(weatherdata[10])
+		console.log(weatherdata[10])
+
+		var temp = weatherdata.search("temp");
+		var tempindex = temp+5
+		var actualtemp = weatherdata.slice(tempindex+1, tempindex+7)
+		console.log(actualtemp);
+
+		var blizzard = weatherdata.search("Extreme");
+		if (blizzard != -1) {
+			alert("Extreme weather conditions. Take Uber/Lyft or Public transportation")
+		};
+		var snowindex = weatherdata.search("Snow");
+		if (snowindex != -1 && tempindex <266){
+			alert("Fairly intense weather conditions. Take Uber/Lyft or Public transportation")
+		};
+	}
+}); 
+
+</script><button id="getWeather">Get Score</button>
+
+</html>
+
+
+
