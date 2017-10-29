@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Web Page</h1>
+<p>My First Paragraph</p>
+
+<p id="demo"></p>
+
+<script>
+
+function requestCSV(filepath)
+{
+    var d = this.response.split('\n'); /*1st separator*/
+    var i = d.length;
+    while(i--)
+    {
+        if(d[i] !== "")
+            d[i] = d[i].split(','); /*2nd separator*/
+        else
+            d.splice(i,1);
+        }
+};
+
+var foo = requestCSV("massachusetts.csv");
+
+</script>
+
+<button onclick="document.write(foo)">Try it</button>
+
+</body>
+</html>
